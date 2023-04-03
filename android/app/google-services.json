@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "795568716376",
+    "project_id": "teachme-chat",
+    "storage_bucket": "teachme-chat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:795568716376:android:8ac8fcf038a5b10bc5e82d",
+        "android_client_info": {
+          "package_name": "com.teachme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "795568716376-86lq68trpniulhj50qukuf2fhcbo3m7f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC02Pa4HAsXXoXp90z9K4wb3QAf4ldjN9M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "795568716376-86lq68trpniulhj50qukuf2fhcbo3m7f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
