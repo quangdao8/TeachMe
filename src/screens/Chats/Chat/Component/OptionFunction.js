@@ -20,7 +20,7 @@ import { AppText, AppImage, Input, Button } from "components";
 import { responsiveFontSize } from "react-native-responsive-dimensions";
 import _ from "lodash";
 import I18n from "helper/locales";
-import firebase from "@react-native-firebase/database";
+import firebase from "@react-native-firebase/app";
 import chatFn from "../Functions";
 import { FONT_SF } from "assets";
 import { Col, Row, Grid } from "react-native-easy-grid";

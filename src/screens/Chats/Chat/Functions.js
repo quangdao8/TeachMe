@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Platform, Alert } from "react-native";
-import firebase from "@react-native-firebase/database";
+import firebase from "@react-native-firebase/app";
 import uuid from "uuid";
 import { CHAT_TYPE, DIMENSION, DEVICE, SECRET_KEY, permissions, resultPermission } from "helper/Consts";
 import I18n from "helper/locales";

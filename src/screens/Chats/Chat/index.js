@@ -2,7 +2,7 @@ import React from "react";
 import { View, Keyboard, Platform } from "react-native";
 import { connect } from "react-redux";
 import { GiftedChat } from "react-native-gifted-chat";
-import firebase from "@react-native-firebase/database";
+import firebase from "@react-native-firebase/app";
 import OpBubbleMessage from "./Component/OpBubbleMessage";
 import MyBubbleMessage from "./Component/MyBubbleMessage";
 import Avatar from "./Component/Avatar";

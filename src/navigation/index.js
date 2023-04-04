@@ -16,6 +16,9 @@ import { DEVICE } from "../helper/Consts";
 import Login from '../screens/StartLogin/index'
 import NewLogin from "../screens/NewLogin";
 import Drawer from "../screens/Drawer"
+import FeeList from "../screens/FeeList"
+import MyQrCode from "../screens/MyQrCode"
+import FrequentQuestions from "../screens/Settings/FrequentQuestions";
 
 const LoginStack = createStackNavigator(
     {
@@ -72,13 +75,13 @@ const DrawerApp = createDrawerNavigator(
         // DetailTeacher,
         // Maps,
         // Charts,
-        // MyQrCode,
+        MyQrCode,
         // TopupStack,
         // IncomeHistory,
         // SettingStack,
         // QrScanStack,
-        // FrequentQuestions,
-        // FeeList,
+        FrequentQuestions,
+        FeeList,
         // Chat,
         // LoadingScreen
     },
