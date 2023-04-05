@@ -45,7 +45,7 @@ import { numberToCurrency } from "helper/convertLang";
 import { getTeacherRequest } from "actions/contactActions";
 import { password } from "screens/Registration";
 import RNCallKeep from "libraries/CallKeep";
-import fbRN from "react-native-firebase";
+// import fbRN from "react-native-firebase";
 import CallDetectorManager from "react-native-call-detection";
 import uuid from "uuid";
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = Dimensions.get("window");
@@ -71,13 +71,13 @@ const options = {
     }
 };
 
-const notification = new fbRN.notifications.Notification()
-    .setNotificationId("notificationId")
-    .setTitle("Trong cuộc gọi")
-    .setBody("Nhấn để quay lai cuộc gọi")
-    .android.setChannelId("general")
-    .android.setSmallIcon("ic_launcher")
-    .android.setPriority(fbRN.notifications.Android.Priority.Max);
+// const notification = new fbRN.notifications.Notification()
+//     .setNotificationId("notificationId")
+//     .setTitle("Trong cuộc gọi")
+//     .setBody("Nhấn để quay lai cuộc gọi")
+//     .android.setChannelId("general")
+//     .android.setSmallIcon("ic_launcher")
+//     .android.setPriority(fbRN.notifications.Android.Priority.Max);
 
 // let peerConnection = new RTCPeerConnection(configuration);
 
@@ -279,7 +279,7 @@ class VideoCall extends Component {
     }
 
     async sendLocalNoti() {
-        await fbRN.notifications().displayNotification(notification);
+        // await fbRN.notifications().displayNotification(notification);
         console.log("start noti", notification);
     }
 
@@ -293,7 +293,7 @@ class VideoCall extends Component {
                 if (!!this.timeoutId) {
                     BackgroundTimer.clearTimeout(this.timeoutId);
                 }
-                fbRN.notifications().removeDeliveredNotification("notificationId");
+                // fbRN.notifications().removeDeliveredNotification("notificationId");
             }
             this.appState = nextAppState;
         }

@@ -7,7 +7,6 @@ import {
     StatusBar,
     Dimensions,
     Platform,
-    Vibration,
     DeviceEventEmitter,
     Image
 } from "react-native";
@@ -66,12 +65,12 @@ class IncomingCall extends React.Component {
         // });
         const { isRingtone = true, isCallVibration = true } = this.callData;
         if (isRingtone) {
-            IncallManager.startRingtone("_BUNDLE_", [], "", 60);
+            IncallManager.startRingtone("_BUNDLE_");
         } else {
             IncallManager.stopRingtone();
         }
         if (isCallVibration) {
-            Vibration.vibrate(PATTERN, true);
+            // Vibration.vibrate(PATTERN, true);
         }
         this.myDb.limitToLast(1).on("child_added", childSnapshot => {
             const item = childSnapshot.toJSON();
@@ -128,7 +127,7 @@ class IncomingCall extends React.Component {
         IncallManager.stopRingtone();
         IncallManager.setKeepScreenOn(true);
         // IncallManager.setForceSpeakerphoneOn(true);
-        Vibration.cancel();
+        // Vibration.cancel();
         this.callerDb
             .push({
                 caller: this.friendId,

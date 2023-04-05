@@ -41,6 +41,19 @@ class CallHistory extends React.Component {
     }
 
     componentDidMount() {
+        const { userReducer } = this.props;
+        console.log("............",userReducer.data.id);
+        firebase
+                .database()
+                .ref(`video-call/${userReducer.data.id}`)
+                .limitToLast(1)
+                .on("child_added", childSnapshot => {
+                    console.log('==============', childSnapshot);
+                    let lastItem = childSnapshot.toJSON();
+                    this.props.navigation.push("IncomingCall", {
+                       callData: lastItem
+                     });
+                });
         AsyncStorage.getItem(Const.LOCAL_STORAGE.MISSED_CALLS_SEEN).then(response => {
             if (!_.isEmpty(response)) {
                 let res = JSON.parse(response);

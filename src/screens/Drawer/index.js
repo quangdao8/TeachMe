@@ -122,6 +122,11 @@ class Drawer extends React.Component {
                 .ref(`video-call/${this.state.userRe.data.id}`)
                 .limitToLast(1)
                 .on("child_added", childSnapshot => {
+                    console.log('==============', childSnapshot);
+                    // let lastItem = childSnapshot.toJSON();
+                    // this.props.navigation.push("IncomingCall", {
+                    //    callData: lastItem
+                    //  });
                     let lastItem = childSnapshot.toJSON();
                     const { to, caller, status } = lastItem;
                     if (status === "dialing") {

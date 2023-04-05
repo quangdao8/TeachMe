@@ -47,18 +47,19 @@ class Call extends React.Component {
         this.isHeadPhone = false;
         this.friendPlatForm = "ios";
         this.note = "";
+        this.user = this.props.navigation.getParam("item") || {};
     }
 
     componentDidUpdate(prevProps) {}
 
     componentWillUnmount() {
-        this.backHandler.remove();
-        this.friendId = null;
-        this.myId = null;
-        this.myDb = null;
-        if (this.callTimeOut) {
-            clearTimeout(this.callTimeOut);
-        }
+        // this.backHandler.remove();
+        // this.friendId = null;
+        // this.myId = null;
+        // this.myDb = null;
+        // if (this.callTimeOut) {
+        //     clearTimeout(this.callTimeOut);
+        // }
     }
 
     checkFriendStatus = (content, type) => {
@@ -216,296 +217,314 @@ class Call extends React.Component {
         }, 1000);
     }
 
-    async componentWillMount() {
-        this.backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
-            return true;
-        });
-        this.callTimeOut = setTimeout(() => {
-            this.toggleModal();
-        }, 60000);
-        const { userReducer, tNsReducer } = this.props;
+    componentDidMount() {
+        
+        const { userReducer } = this.props;
         const { data } = userReducer;
-        const { amount = 0 } = data;
-        this.user = this.props.navigation.getParam("item") || {};
+        const { name, avatar, amount = 0 } = data;
+        const { notificationId, of_user, calledId } = this.user;
+        console.log('++++++++++++++++++++', userReducer);
 
-        const { calledId = 0, of_user = 0, isVideo = false, notificationId, friendType } = this.user;
-        this.friendId = await calledId;
-        this.myId = await of_user;
-        this.myDb = firebase.database().ref(`video-call/${of_user}`);
-        this.calledDb = firebase.database().ref(`video-call/${calledId || 0}`);
-        let default_Fee =
-            friendType == USER_TYPE.TEACHER
-                ? tNsReducer.dataMasterSetting.results[0].block_value_teacher
-                : tNsReducer.dataMasterSetting.results[0].block_value_student;
-        let consultantFee = await ServiceHandle.get(`/consultant_fee/?user_id=${this.friendId}&active=1`);
-        if (
-            !consultantFee.error &&
-            consultantFee.response[0] &&
-            consultantFee.response[0].consultant_fee > default_Fee
-        ) {
-            default_Fee = consultantFee.response[0].consultant_fee;
-        }
-        if (amount < default_Fee / 2) {
-            IncallManager.stop({ busytone: "_BUNDLE_" });
-            Alert.alert(
-                I18n.t("Alert.notice"),
-                I18n.t("Alert.notEnoughMoney"),
-                [{ text: "OK", onPress: () => this.props.navigation.goBack() }],
-                { cancelable: false }
-            );
-            return;
-        } else {
-            await IncallManager.checkRecordPermission();
-            IncallManager.start({
-                media: isVideo ? "video" : "audio",
-                auto: true,
-                ringback: "_BUNDLE_"
-            });
-            // if (!isVideo) {
-            //     IncallManager.setForceSpeakerphoneOn(false);
-            // } else {
-            //     IncallManager.setForceSpeakerphoneOn(true);
-            // }
-            DeviceEventEmitter.addListener("WiredHeadset", data => {
-                const { deviceName, hasMic, isPlugged = false } = data;
-                if (!this.state.isSpeaker) {
-                    if (!isPlugged && isVideo) {
-                        IncallManager.setForceSpeakerphoneOn(true);
-                    } else if (isPlugged) {
-                        IncallManager.setForceSpeakerphoneOn(false);
-                    }
-                }
-            });
-            // IncallManager.setKeepScreenOn(true);
+        firebase.database().ref(`/video-call/${calledId}`).push({
+            caller: this.myId,
+            to: of_user,
+            status: "dialing",
+            isCanReceive: false,
+            callerName: name,
+            avatar: avatar,
+            isVideo: this.user.isVideo
+        }).then(() => console.log('Data updated.')).catch(e=> console.log('==================', e));
+        
+        // this.backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
+        //     return true;
+        // });
+        // this.callTimeOut = setTimeout(() => {
+        //     this.toggleModal();
+        // }, 60000);
+        // const { userReducer, tNsReducer } = this.props;
+        // const { data } = userReducer;
+        // const { amount = 0 } = data;
+        // this.user = this.props.navigation.getParam("item") || {};
 
-            firebase
-                .database()
-                .ref("/status/")
-                .orderByChild("id")
-                .endAt(this.friendId)
-                .limitToLast(1)
-                .once("value", childSnapshot => {
-                    const lastItem = childSnapshot.toJSON();
-                    const value = Object.values(lastItem);
-                    const item = value[0];
-                    const { id = 0, status = true } = item;
-                    if (this.user.friendType === Const.USER_TYPE.STUDENT) {
-                        return this.checkCall(isVideo);
-                    } else {
-                        if (id > 0 && status) {
-                            return this.checkCall(isVideo);
-                        } else {
-                            this.busy();
-                            if (!this.isAddCallLog) {
-                                const paramsAdd = {
-                                    user_call_id: this.myId,
-                                    user_receive_id: this.friendId,
-                                    start_time: moment()
-                                        .utc()
-                                        .format("YYYY-MM-DDTHH:mm:ss.SSSSSS"),
-                                    end_time: moment()
-                                        .utc()
-                                        .format("YYYY-MM-DD HH:mm:ss.SSSSSS"),
-                                    duration: 0,
-                                    note_called_user: this.note.trim()
-                                };
-                                callAddRequest(paramsAdd, this.myId);
-                                this.isAddCallLog = true;
-                            }
-                            return;
-                        }
-                    }
-                    // return false;
-                });
+        // const { calledId = 0, of_user = 0, isVideo = false, notificationId, friendType } = this.user;
+        // this.friendId = await calledId;
+        // this.myId = await of_user;
+        // this.myDb = firebase.database().ref(`video-call/${of_user}`);
+        // this.calledDb = firebase.database().ref(`video-call/${calledId || 0}`);
+        // let default_Fee =
+        //     friendType == USER_TYPE.TEACHER
+        //         ? tNsReducer.dataMasterSetting.results[0].block_value_teacher
+        //         : tNsReducer.dataMasterSetting.results[0].block_value_student;
+        // let consultantFee = await ServiceHandle.get(`/consultant_fee/?user_id=${this.friendId}&active=1`);
+        // if (
+        //     !consultantFee.error &&
+        //     consultantFee.response[0] &&
+        //     consultantFee.response[0].consultant_fee > default_Fee
+        // ) {
+        //     default_Fee = consultantFee.response[0].consultant_fee;
+        // }
+        // if (amount < default_Fee / 2) {
+        //     IncallManager.stop({ busytone: "_BUNDLE_" });
+        //     Alert.alert(
+        //         I18n.t("Alert.notice"),
+        //         I18n.t("Alert.notEnoughMoney"),
+        //         [{ text: "OK", onPress: () => this.props.navigation.goBack() }],
+        //         { cancelable: false }
+        //     );
+        //     return;
+        // } else {
+        //     await IncallManager.checkRecordPermission();
+        //     IncallManager.start({
+        //         media: isVideo ? "video" : "audio",
+        //         auto: true,
+        //         ringback: "_BUNDLE_"
+        //     });
+        //     // if (!isVideo) {
+        //     //     IncallManager.setForceSpeakerphoneOn(false);
+        //     // } else {
+        //     //     IncallManager.setForceSpeakerphoneOn(true);
+        //     // }
+        //     DeviceEventEmitter.addListener("WiredHeadset", data => {
+        //         const { deviceName, hasMic, isPlugged = false } = data;
+        //         if (!this.state.isSpeaker) {
+        //             if (!isPlugged && isVideo) {
+        //                 IncallManager.setForceSpeakerphoneOn(true);
+        //             } else if (isPlugged) {
+        //                 IncallManager.setForceSpeakerphoneOn(false);
+        //             }
+        //         }
+        //     });
+        //     // IncallManager.setKeepScreenOn(true);
 
-            this.myDb.limitToLast(1).on("child_added", childSnapshot => {
-                const lastItem = childSnapshot.toJSON();
-                const { isCanReceive, caller, status, to } = lastItem;
-                if (status === "connected" && caller === this.myId) {
-                    if (this.callTimeOut) {
-                        clearTimeout(this.callTimeOut);
-                    }
-                    IncallManager.stopRingback();
-                    // let a = {};
-                    this.calledDb
-                        .push({
-                            caller: this.myId,
-                            to: this.friendId,
-                            status: "connected",
-                            isCanReceive: false,
-                            isVideo: this.user.isVideo,
-                            isCaller: true,
-                            media: {
-                                width: DEVICE_WIDTH,
-                                height: DEVICE_HEIGHT
-                            }
-                            // from: a.from
-                        })
-                        .then(data => {
-                            const paramsAdd = {
-                                user_call_id: this.myId,
-                                user_receive_id: this.friendId,
-                                start_time: moment()
-                                    .utc()
-                                    .format("YYYY-MM-DDTHH:mm:ss.SSSSSS"),
-                                // end_time: moment()
-                                //     .utc()
-                                //     .format("YYYY-MM-DD HH:mm:ss.SSSSSS"),
-                                duration: 1
-                                // note_called_user: this.note
-                            };
-                            if (!this.isAddCallLog) {
-                                this.isAddCallLog = true;
-                                ServiceHandle.post("call_log/", paramsAdd)
-                                    .then(res => {
-                                        if (!res.error) {
-                                            firebase
-                                                .database()
-                                                .ref(`/call-log-id/${this.friendId}`)
-                                                .push({
-                                                    call_log: res.response.id
-                                                })
-                                                .then(data => {
-                                                    this.isToVideoCall = true;
-                                                    this.props.navigation.replace("VideoCall", {
-                                                        roomId: this.friendId,
-                                                        isFrom: true,
-                                                        userId: this.myId,
-                                                        callerId: this.myId,
-                                                        isVideo: this.user.isVideo,
-                                                        note: this.note,
-                                                        isSpeaker: this.state.isSpeaker,
-                                                        isMute: this.state.mute,
-                                                        consultant_fee: this.user.consultant_fee,
-                                                        callData: {
-                                                            callerName: this.user.nickname,
-                                                            avatar: this.user.avatar
-                                                        },
-                                                        friendType: this.user.friendType,
-                                                        callLogId: res.response.id
-                                                    });
-                                                });
-                                        }
-                                    })
-                                    .catch(e => {
-                                        console.log(e);
-                                    });
-                            }
-                        })
-                        .catch(e => {
-                            console.log(e);
-                        });
-                    return;
-                }
-                if (status === "finished" && caller === this.myId && !this.isToVideoCall) {
-                    if (this.callTimeOut) {
-                        clearTimeout(this.callTimeOut);
-                    }
-                    IncallManager.stopRingback();
-                    IncallManager.setKeepScreenOn(false);
-                    IncallManager.setForceSpeakerphoneOn(false);
-                    IncallManager.stop({ busytone: "_BUNDLE_" });
-                    if (this.myDb) {
-                        this.myDb.remove();
-                        if (this.calledDb) {
-                            this.calledDb.remove();
-                        }
-                    }
-                    if (!this.isAddCallLog) {
-                        const paramsAdd = {
-                            user_call_id: this.myId,
-                            user_receive_id: this.friendId,
-                            start_time: moment()
-                                .utc()
-                                .format("YYYY-MM-DDTHH:mm:ss.SSSSSS"),
-                            end_time: moment()
-                                .utc()
-                                .format("YYYY-MM-DD HH:mm:ss.SSSSSS"),
-                            duration: 0,
-                            note_called_user: this.note.trim()
-                        };
-                        callAddRequest(paramsAdd, this.myId);
-                        this.isAddCallLog = true;
-                    }
-                    IncallManager.stop();
-                    if (Platform.OS === "ios") {
-                        RNCallKeep.endAllCalls();
-                    }
-                    this.props.navigation.goBack();
-                    return;
-                }
-            });
-            return;
-        }
+        //     firebase
+        //         .database()
+        //         .ref("/status/")
+        //         .orderByChild("id")
+        //         .endAt(this.friendId)
+        //         .limitToLast(1)
+        //         .once("value", childSnapshot => {
+        //             const lastItem = childSnapshot.toJSON();
+        //             const value = Object.values(lastItem);
+        //             const item = value[0];
+        //             const { id = 0, status = true } = item;
+        //             if (this.user.friendType === Const.USER_TYPE.STUDENT) {
+        //                 return this.checkCall(isVideo);
+        //             } else {
+        //                 if (id > 0 && status) {
+        //                     return this.checkCall(isVideo);
+        //                 } else {
+        //                     this.busy();
+        //                     if (!this.isAddCallLog) {
+        //                         const paramsAdd = {
+        //                             user_call_id: this.myId,
+        //                             user_receive_id: this.friendId,
+        //                             start_time: moment()
+        //                                 .utc()
+        //                                 .format("YYYY-MM-DDTHH:mm:ss.SSSSSS"),
+        //                             end_time: moment()
+        //                                 .utc()
+        //                                 .format("YYYY-MM-DD HH:mm:ss.SSSSSS"),
+        //                             duration: 0,
+        //                             note_called_user: this.note.trim()
+        //                         };
+        //                         callAddRequest(paramsAdd, this.myId);
+        //                         this.isAddCallLog = true;
+        //                     }
+        //                     return;
+        //                 }
+        //             }
+        //             // return false;
+        //         });
+
+        //     this.myDb.limitToLast(1).on("child_added", childSnapshot => {
+        //         const lastItem = childSnapshot.toJSON();
+        //         const { isCanReceive, caller, status, to } = lastItem;
+        //         if (status === "connected" && caller === this.myId) {
+        //             if (this.callTimeOut) {
+        //                 clearTimeout(this.callTimeOut);
+        //             }
+        //             IncallManager.stopRingback();
+        //             // let a = {};
+        //             this.calledDb
+        //                 .push({
+        //                     caller: this.myId,
+        //                     to: this.friendId,
+        //                     status: "connected",
+        //                     isCanReceive: false,
+        //                     isVideo: this.user.isVideo,
+        //                     isCaller: true,
+        //                     media: {
+        //                         width: DEVICE_WIDTH,
+        //                         height: DEVICE_HEIGHT
+        //                     }
+        //                     // from: a.from
+        //                 })
+        //                 .then(data => {
+        //                     const paramsAdd = {
+        //                         user_call_id: this.myId,
+        //                         user_receive_id: this.friendId,
+        //                         start_time: moment()
+        //                             .utc()
+        //                             .format("YYYY-MM-DDTHH:mm:ss.SSSSSS"),
+        //                         // end_time: moment()
+        //                         //     .utc()
+        //                         //     .format("YYYY-MM-DD HH:mm:ss.SSSSSS"),
+        //                         duration: 1
+        //                         // note_called_user: this.note
+        //                     };
+        //                     if (!this.isAddCallLog) {
+        //                         this.isAddCallLog = true;
+        //                         ServiceHandle.post("call_log/", paramsAdd)
+        //                             .then(res => {
+        //                                 if (!res.error) {
+        //                                     firebase
+        //                                         .database()
+        //                                         .ref(`/call-log-id/${this.friendId}`)
+        //                                         .push({
+        //                                             call_log: res.response.id
+        //                                         })
+        //                                         .then(data => {
+        //                                             this.isToVideoCall = true;
+        //                                             this.props.navigation.replace("VideoCall", {
+        //                                                 roomId: this.friendId,
+        //                                                 isFrom: true,
+        //                                                 userId: this.myId,
+        //                                                 callerId: this.myId,
+        //                                                 isVideo: this.user.isVideo,
+        //                                                 note: this.note,
+        //                                                 isSpeaker: this.state.isSpeaker,
+        //                                                 isMute: this.state.mute,
+        //                                                 consultant_fee: this.user.consultant_fee,
+        //                                                 callData: {
+        //                                                     callerName: this.user.nickname,
+        //                                                     avatar: this.user.avatar
+        //                                                 },
+        //                                                 friendType: this.user.friendType,
+        //                                                 callLogId: res.response.id
+        //                                             });
+        //                                         });
+        //                                 }
+        //                             })
+        //                             .catch(e => {
+        //                                 console.log(e);
+        //                             });
+        //                     }
+        //                 })
+        //                 .catch(e => {
+        //                     console.log(e);
+        //                 });
+        //             return;
+        //         }
+        //         if (status === "finished" && caller === this.myId && !this.isToVideoCall) {
+        //             if (this.callTimeOut) {
+        //                 clearTimeout(this.callTimeOut);
+        //             }
+        //             IncallManager.stopRingback();
+        //             IncallManager.setKeepScreenOn(false);
+        //             IncallManager.setForceSpeakerphoneOn(false);
+        //             IncallManager.stop({ busytone: "_BUNDLE_" });
+        //             if (this.myDb) {
+        //                 this.myDb.remove();
+        //                 if (this.calledDb) {
+        //                     this.calledDb.remove();
+        //                 }
+        //             }
+        //             if (!this.isAddCallLog) {
+        //                 const paramsAdd = {
+        //                     user_call_id: this.myId,
+        //                     user_receive_id: this.friendId,
+        //                     start_time: moment()
+        //                         .utc()
+        //                         .format("YYYY-MM-DDTHH:mm:ss.SSSSSS"),
+        //                     end_time: moment()
+        //                         .utc()
+        //                         .format("YYYY-MM-DD HH:mm:ss.SSSSSS"),
+        //                     duration: 0,
+        //                     note_called_user: this.note.trim()
+        //                 };
+        //                 callAddRequest(paramsAdd, this.myId);
+        //                 this.isAddCallLog = true;
+        //             }
+        //             IncallManager.stop();
+        //             if (Platform.OS === "ios") {
+        //                 RNCallKeep.endAllCalls();
+        //             }
+        //             this.props.navigation.goBack();
+        //             return;
+        //         }
+        //     });
+        //     return;
+        // }
     }
 
     toggleModal = () => {
-        if (this.isBusy) {
-            return;
-        }
-        if (!this.isBusy) {
-            //TODO: END CALL
-            const { userReducer } = this.props;
-            const { data } = userReducer;
-            const { user, avatar, amount = 0 } = data;
-            const { first_name, last_name } = user;
-            const { calledId = 0, of_user = 0, isVideo = false, notificationId } = this.user;
-            if (this.callTimeOut) {
-                clearTimeout(this.callTimeOut);
-            }
-            let message = {
-                avatar: avatar,
-                caller: this.myId,
-                callerName: first_name + " " + last_name,
-                isCanReceive: false,
-                isVideo: this.user.isVideo,
-                to: this.friendId,
-                status: "finished"
-            };
-            // if (this.friendPlatForm === "ios") {
-            //     this.voipCallRequest(Const.CALLING_ACTION.FINISHED, message);
-            // }
-            let content = {
-                notificationId: [notificationId],
-                noti: {
-                    body: `${I18n.t("CallScreen.haveMissedCall")} ${first_name} ${last_name}`,
-                    title: I18n.t("Alert.notice")
-                },
-                message
-            };
+        this.props.navigation.goBack()
+        // if (this.isBusy) {
+        //     return;
+        // }
+        // if (!this.isBusy) {
+        //     //TODO: END CALL
+        //     const { userReducer } = this.props;
+        //     const { data } = userReducer;
+        //     const { user, avatar, amount = 0 } = data;
+        //     const { first_name, last_name } = user;
+        //     const { calledId = 0, of_user = 0, isVideo = false, notificationId } = this.user;
+        //     if (this.callTimeOut) {
+        //         clearTimeout(this.callTimeOut);
+        //     }
+        //     let message = {
+        //         avatar: avatar,
+        //         caller: this.myId,
+        //         callerName: first_name + " " + last_name,
+        //         isCanReceive: false,
+        //         isVideo: this.user.isVideo,
+        //         to: this.friendId,
+        //         status: "finished"
+        //     };
+        //     // if (this.friendPlatForm === "ios") {
+        //     //     this.voipCallRequest(Const.CALLING_ACTION.FINISHED, message);
+        //     // }
+        //     let content = {
+        //         notificationId: [notificationId],
+        //         noti: {
+        //             body: `${I18n.t("CallScreen.haveMissedCall")} ${first_name} ${last_name}`,
+        //             title: I18n.t("Alert.notice")
+        //         },
+        //         message
+        //     };
 
-            IncallManager.stop({ busytone: "_BUNDLE_" });
-            IncallManager.setKeepScreenOn(false);
-            IncallManager.setForceSpeakerphoneOn(false);
-            IncallManager.stopRingback();
-            if (amount > 0) {
-                this.checkFriendStatus(content, "missCall");
-            }
-            this.calledDb
-                .push({
-                    caller: this.myId,
-                    to: this.friendId,
-                    status: "finished",
-                    isCanReceive: true
-                })
-                .then(() => {
-                    setTimeout(() => {
-                        this.calledDb && this.calledDb.remove();
-                    }, 1000);
-                });
-            this.myDb
-                .push({
-                    caller: this.myId,
-                    to: this.friendId,
-                    status: "finished",
-                    isCanReceive: true
-                })
-                .then(() => {
-                    setTimeout(() => {
-                        this.myDb && this.myDb.remove();
-                    }, 1000);
-                });
-        }
+        //     IncallManager.stop({ busytone: "_BUNDLE_" });
+        //     IncallManager.setKeepScreenOn(false);
+        //     IncallManager.setForceSpeakerphoneOn(false);
+        //     IncallManager.stopRingback();
+        //     if (amount > 0) {
+        //         this.checkFriendStatus(content, "missCall");
+        //     }
+        //     this.calledDb
+        //         .push({
+        //             caller: this.myId,
+        //             to: this.friendId,
+        //             status: "finished",
+        //             isCanReceive: true
+        //         })
+        //         .then(() => {
+        //             setTimeout(() => {
+        //                 this.calledDb && this.calledDb.remove();
+        //             }, 1000);
+        //         });
+        //     this.myDb
+        //         .push({
+        //             caller: this.myId,
+        //             to: this.friendId,
+        //             status: "finished",
+        //             isCanReceive: true
+        //         })
+        //         .then(() => {
+        //             setTimeout(() => {
+        //                 this.myDb && this.myDb.remove();
+        //             }, 1000);
+        //         });
+        // }
     };
 
     renderButton = (source, title, onPress) => {

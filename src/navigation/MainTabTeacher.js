@@ -21,7 +21,7 @@ import AddDeviceContact from "../screens/AddDeviceContact"
 import QRScan from "../screens/QRScan";
 import IncomingCall from "../screens/IncomingCall";
 import Share from "../screens/Teacher/Share"
-// import VideoCall from "../screens/VideoCall";
+import VideoCall from "../screens/VideoCall";
 import CallHistory from "../screens/CallHistory";
 import ForwardMessage from "../screens/Chats/ForwardMessage"
 import GroupSelect from "../screens/Chats/GroupSelect";
@@ -36,7 +36,7 @@ const StackContact = createStackNavigator(
         QRScan,
         Call,
         IncomingCall,
-        // VideoCall,
+        VideoCall,
         DetailTeacher,
         Chat,
         AddDeviceContact

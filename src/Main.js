@@ -125,7 +125,7 @@ class MainApp extends React.Component {
           .ref(`video-call/${id}`)
           .once('value', snapshot => {
             if (!snapshot.exists()) {
-              this.finishActivity();
+              // this.finishActivity();
             }
           });
 
@@ -137,7 +137,7 @@ class MainApp extends React.Component {
             let lastItem = childSnapshot.toJSON();
             const {status} = lastItem;
             if (status === 'finished') {
-              this.finishActivity();
+              // this.finishActivity();
               fbDatabase.database().ref(`video-call/${id}`).remove();
             }
           });

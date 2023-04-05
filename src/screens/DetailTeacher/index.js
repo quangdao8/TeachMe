@@ -83,6 +83,7 @@ class DetailTeacher extends React.Component {
 
     async componentDidMount() {
         const contact = this.props.navigation.getParam("contact");
+        console.log('-------------------', contact);
         const { favoriteReducer, dispatch, tNsReducer } = this.props;
         const default_Fee = tNsReducer.dataMasterSetting.results[0].block_value_teacher;
         dispatch(getFavoriteTeacherRequest(contact.teacher.id));
@@ -464,7 +465,8 @@ class DetailTeacher extends React.Component {
     renderHeader() {
         const { lastOnline, is_like, dataLike } = this.state;
         const { navigation, userReducer, dispatch } = this.props;
-        const contact = dataLike;
+        // const contact = dataLike;
+        const contact = this.props.navigation.getParam("contact");
         const { id, avatar } = contact.teacher;
         const realName = contact.teacher.user.first_name + " " + contact.teacher.user.last_name;
         let time = lastOnline
@@ -521,7 +523,7 @@ class DetailTeacher extends React.Component {
                         item: {
                             avatar: contact.teacher.avatar,
                             nickname: contact.teacher.name,
-                            calledId: id,
+                            calledId: contact.id,
                             of_user: userReducer.data.id,
                             isVideo: false,
                             from: "detail teacher",

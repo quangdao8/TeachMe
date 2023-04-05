@@ -58,11 +58,12 @@ class DetailSearch extends React.Component {
         this.like = false;
     }
 
-    componentWillMount() {
+    componentDidMount() {
         const { userReducer, contactReducer } = this.props;
         // const array = userReducer.dataSearch.results;
         const { response } = contactReducer.data;
         const contact = this.props.navigation.getParam("contact");
+        
         const { id } = contact;
         const index = _.findIndex(response, obj => {
             return obj.about_user.id == id;
@@ -336,7 +337,7 @@ class DetailSearch extends React.Component {
                         <Icon name="heart" type="FontAwesome" style={{ color: Colors.RED_COLOR }} />
                     )
                 }
-                onRBtnPress={() => alert("nút yêu thích")}
+                // onRBtnPress={() => alert("nút yêu thích")}
                 LBtmPress={() => {
                     navigation.navigate("Call", {
                         item: {

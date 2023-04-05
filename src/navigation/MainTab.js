@@ -21,7 +21,7 @@ import AddDeviceContact from "../screens/AddDeviceContact"
 import QRScan from "../screens/QRScan";
 import IncomingCall from "../screens/IncomingCall";
 import Share from "../screens/Teacher/Share"
-// import VideoCall from "../screens/VideoCall";
+import VideoCall from "../screens/VideoCall";
 import ListTeacher from "../screens/Teacher/ListTeacher"
 import Advancedsearch from '../screens/Search/Advancedsearch'
 import Maps from "../screens/Maps"
@@ -31,6 +31,7 @@ import ForwardMessage from "../screens/Chats/ForwardMessage"
 import GroupSelect from "../screens/Chats/GroupSelect";
 import QRScanTeacher from "../screens/Teacher/QRScanTeacher"
 import DetailSearch from "../screens/Search/DetailSearch"
+import ReceiveCall from "../screens/CallReceive"
 
 const StackContact = createStackNavigator(
     {
@@ -41,7 +42,7 @@ const StackContact = createStackNavigator(
         QRScan,
         Call,
         IncomingCall,
-        // VideoCall,
+        VideoCall,
         DetailTeacher,
         Share,
         Chat,
@@ -126,7 +127,8 @@ const StackCall = createStackNavigator(
         CallHistory,
         // CallDetails,
         Call,
-        // VideoCall
+        ReceiveCall,
+        VideoCall
     },
     {
         initialRouteName: "CallHistory",
