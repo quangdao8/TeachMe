@@ -7,31 +7,6 @@ import {
     createDrawerNavigator,
     createBottomTabNavigator
 } from "react-navigation";
-// import {
-//     Maps,
-//     Chat,
-    // ContactDetails,
-//     AddContact,
-//     FindContact,
-//     QRScan,
-//     ChatHistories,
-//     Call,
-//     CallHistory,
-//     CallDetails,
-//     IncomingCall,
-//     VideoCall,
-//     DetailTeacher,
-//     ListTeacher,
-//     GroupSelect,
-//     Advancedsearch,
-//     Share,
-//     ListSearch,
-//     DetailSearch,
-//     GroupChatDetail,
-//     QRScanTeacher,
-//     ForwardMessage,
-//     AddDeviceContact
-// } from "screens/index";
 
 import { ListUser } from "../screens/Contacts";
 import ChatHistories from "../screens/Chats/ChatHistories"
@@ -52,6 +27,10 @@ import Advancedsearch from '../screens/Search/Advancedsearch'
 import Maps from "../screens/Maps"
 import CallHistory from "../screens/CallHistory";
 import ListSearch from "../screens/Search/ListSearch"
+import ForwardMessage from "../screens/Chats/ForwardMessage"
+import GroupSelect from "../screens/Chats/GroupSelect";
+import QRScanTeacher from "../screens/Teacher/QRScanTeacher"
+import DetailSearch from "../screens/Search/DetailSearch"
 
 const StackContact = createStackNavigator(
     {
@@ -104,12 +83,12 @@ const StackChat = createStackNavigator(
         Chat,
         Call,
         // VideoCall,
-        // GroupSelect,
+        GroupSelect,
         // GroupChatDetail,
-        // DetailSearch,
-        // ContactDetails,
+        DetailSearch,
+        ContactDetails,
         DetailTeacher,
-        // ForwardMessage
+        ForwardMessage
     },
     {
         initialRouteName: "ChatHistories",
@@ -123,22 +102,22 @@ const StackChat = createStackNavigator(
     }
 );
 
-// StackChat.navigationOptions = ({ navigation }) => {
-//     const currentScreenPath = navigation.router.getPathAndParamsForState(navigation.state).path;
-//     const isChatScreen =
-//         currentScreenPath === "Chat" ||
-//         currentScreenPath === "Call" ||
-//         currentScreenPath === "GroupSelect" ||
-//         currentScreenPath === "GroupChatDetail" ||
-//         currentScreenPath === "DetailSearch" ||
-//         currentScreenPath === "DetailTeacher" ||
-//         currentScreenPath === "VideoCall" ||
-//         currentScreenPath === "ForwardMessage" ||
-//         currentScreenPath === "ContactDetails";
-//     return {
-//         tabBarVisible: isChatScreen === false
-//     };
-// };
+StackChat.navigationOptions = ({ navigation }) => {
+    const currentScreenPath = navigation.router.getPathAndParamsForState(navigation.state).path;
+    const isChatScreen =
+        currentScreenPath === "Chat" ||
+        currentScreenPath === "Call" ||
+        currentScreenPath === "GroupSelect" ||
+        currentScreenPath === "GroupChatDetail" ||
+        currentScreenPath === "DetailSearch" ||
+        currentScreenPath === "DetailTeacher" ||
+        currentScreenPath === "VideoCall" ||
+        currentScreenPath === "ForwardMessage" ||
+        currentScreenPath === "ContactDetails";
+    return {
+        tabBarVisible: isChatScreen === false
+    };
+};
 
 //stackCall
 
@@ -177,12 +156,12 @@ const StackTeacher = createStackNavigator(
         QRScan,
         DetailTeacher,
         Maps,
-        // Share,
+        Share,
         ListSearch,
         // DetailSearch,
         // Chat,
         Advancedsearch,
-        // QRScanTeacher
+        QRScanTeacher
     },
     {
         initialRouteName: "ListTeacher",

@@ -387,10 +387,10 @@ class DetailTeacher extends React.Component {
     onLike() {
         const { is_like } = this.state;
         const { userReducer, favoriteReducer } = this.props;
-        const contact = favoriteReducer.dataFavoriteTeacher;
+        const contact = favoriteReducer?.dataFavoriteTeacher;
         this.setState({ is_like: !is_like });
         const params = {
-            teacher_id: contact.teacher.id,
+            teacher_id: contact?.teacher.id,
             user_id: userReducer.data.id
         };
         this.props.dispatch(sendFavoriteTeacherRequest(params));
@@ -399,7 +399,7 @@ class DetailTeacher extends React.Component {
         const { is_like } = this.state;
         const contact = this.props.favoriteReducer.dataFavoriteTeacher;
         this.setState({ is_like: !is_like });
-        const data = await ServiceHandle.delete(`favorite_teacher/${contact.teacher.id}/`);
+        const data = await ServiceHandle.delete(`favorite_teacher/${contact?.teacher.id}/`);
         if (data.error == false) {
             this.onLoading();
         }

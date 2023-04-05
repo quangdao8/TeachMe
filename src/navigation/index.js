@@ -11,7 +11,7 @@ import {
 // import { AddMemberDrawer, QRScanDrawer } from "../screens/DrawerScreen";
 // import { ListUser } from "screens/Contacts";
 import MainTabContainer from "./MainTabContainer";
-// import MainTabContainerTeacher from "./MainTabContainerTeacher";
+import MainTabContainerTeacher from "./MainTabContainerTeacher";
 import { DEVICE } from "../helper/Consts";
 import Login from '../screens/StartLogin/index'
 import NewLogin from "../screens/NewLogin";
@@ -91,38 +91,38 @@ const DrawerApp = createDrawerNavigator(
     }
 );
 
-// const DrawerAppTeacher = createDrawerNavigator(
-//     {
-//         MainTabContainerTeacher,
-//         TeacherDetails,
-//         StudentDetails,
-//         DetailTeacher,
-//         Maps,
-//         Charts,
-//         MyQrCode,
-//         TopupStack,
-//         IncomeHistory,
-//         SettingStack,
-//         QrScanStack,
-//         FrequentQuestions,
-//         FeeList,
-//         LoadingScreen,
-//         Chat
-//     },
-//     {
-//         contentComponent: Drawer,
-//         drawerWidth: DEVICE.DEVICE_WIDTH * 0.85
-//     }
-// );
+const DrawerAppTeacher = createDrawerNavigator(
+    {
+        MainTabContainerTeacher,
+        // TeacherDetails,
+        // StudentDetails,
+        // DetailTeacher,
+        // Maps,
+        // Charts,
+        // MyQrCode,
+        // TopupStack,
+        // IncomeHistory,
+        // SettingStack,
+        // QrScanStack,
+        // FrequentQuestions,
+        // FeeList,
+        // LoadingScreen,
+        // Chat
+    },
+    {
+        contentComponent: Drawer,
+        drawerWidth: DEVICE.DEVICE_WIDTH * 0.85
+    }
+);
 
 const Switch = createSwitchNavigator(
     {
         LoginStack,
-        DrawerApp
+        DrawerApp,
         // Maps,
         // Element,
         // DrawerApp,
-        // DrawerAppTeacher,
+        DrawerAppTeacher,
         // Splash,
         // IncomeHistory,
         // MainSetting,

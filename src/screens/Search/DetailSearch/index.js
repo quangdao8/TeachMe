@@ -33,7 +33,7 @@ import {
 import I18n from "helper/locales";
 import styles from "./styles";
 const _ = require("lodash");
-import firebase from "firebase";
+import firebase from "@react-native-firebase/app";
 import "moment/locale/vi";
 
 var months = ["March", "Jan", "Feb", "Dec"];

@@ -9,7 +9,7 @@ import RNFetchBlob from "rn-fetch-blob";
 const moment = require("moment");
 const _ = require("lodash");
 const CryptoJS = require("crypto-js");
-import CameraRoll from "@react-native-community/cameraroll";
+import {CameraRoll} from "@react-native-camera-roll/camera-roll";
 import Permissions from "react-native-permissions";
 const AVATAR =
     "https://firebasestorage.googleapis.com/v0/b/yo-learner-test.appspot.com/o/yo-learn-avatar%2Fdefault_avatar.png?alt=media&token=fa92022d-e2ae-421d-a23f-04eef8f5a1df";

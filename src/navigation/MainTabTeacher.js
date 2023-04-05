@@ -7,28 +7,25 @@ import {
     createDrawerNavigator,
     createBottomTabNavigator
 } from "react-navigation";
-import {
-    Chat,
-    ContactDetails,
-    AddContact,
-    FindContact,
-    QRScan,
-    ChatHistories,
-    Call,
-    CallHistory,
-    CallDetails,
-    IncomingCall,
-    VideoCall,
-    DetailTeacher,
-    GroupSelect,
-    GroupChatDetail,
-    Student,
-    DetailSearch,
-    ForwardMessage,
-    AddDeviceContact
-} from "screens/index";
 
-import { ListUser } from "screens/Contacts";
+import { ListUser } from "../screens/Contacts";
+import ChatHistories from "../screens/Chats/ChatHistories"
+// import { Chat } from "../screens";
+import { Chat } from "../screens/Chats";
+import ContactDetails from "../screens/ContactDetails";
+import DetailTeacher from "../screens/DetailTeacher";
+import AddContact from "../screens/AddContact";
+import FindContact from "../screens/FindContact";
+import Call from "../screens/Call";
+import AddDeviceContact from "../screens/AddDeviceContact"
+import QRScan from "../screens/QRScan";
+import IncomingCall from "../screens/IncomingCall";
+import Share from "../screens/Teacher/Share"
+// import VideoCall from "../screens/VideoCall";
+import CallHistory from "../screens/CallHistory";
+import ForwardMessage from "../screens/Chats/ForwardMessage"
+import GroupSelect from "../screens/Chats/GroupSelect";
+import Student from "../screens/Student";
 
 const StackContact = createStackNavigator(
     {
@@ -39,7 +36,7 @@ const StackContact = createStackNavigator(
         QRScan,
         Call,
         IncomingCall,
-        VideoCall,
+        // VideoCall,
         DetailTeacher,
         Chat,
         AddDeviceContact
@@ -77,12 +74,12 @@ const StackChat = createStackNavigator(
         ChatHistories,
         Chat,
         Call,
-        VideoCall,
+        // VideoCall,
         GroupSelect,
-        GroupChatDetail,
-        DetailSearch,
+        // GroupChatDetail,
+        // DetailSearch,
         DetailTeacher,
-        ContactDetails,
+        // ContactDetails,
         ForwardMessage
     },
     {
@@ -118,9 +115,9 @@ StackChat.navigationOptions = ({ navigation }) => {
 const StackCall = createStackNavigator(
     {
         CallHistory,
-        CallDetails,
+        // CallDetails,
         Call,
-        VideoCall
+        // VideoCall
     },
     {
         initialRouteName: "CallHistory",
