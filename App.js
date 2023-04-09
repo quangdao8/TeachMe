@@ -60,7 +60,7 @@ const Section = ({children, title}) => {
 };
 
 export default class App extends Component {
-  componentWillMount() {}
+  UNSAFE_componentWillMount() {}
   render() {
       return (
           <Provider store={store}>

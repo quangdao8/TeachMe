@@ -74,7 +74,7 @@ const StackChat = createStackNavigator(
         ChatHistories,
         Chat,
         Call,
-        // VideoCall,
+        VideoCall,
         GroupSelect,
         // GroupChatDetail,
         // DetailSearch,
@@ -117,7 +117,7 @@ const StackCall = createStackNavigator(
         CallHistory,
         // CallDetails,
         Call,
-        // VideoCall
+        VideoCall
     },
     {
         initialRouteName: "CallHistory",

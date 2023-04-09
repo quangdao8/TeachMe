@@ -84,7 +84,7 @@ class ListUser extends React.Component {
         // this.props.userReducer.data.type == USER_TYPE.STUDENT && this.props.dispatch(switchOnlineStatus(true));
     }
 
-    // componentWillMount() {
+    // UNSAFE_componentWillMount() {
     //     this.onGetListFavor();
     // }
 

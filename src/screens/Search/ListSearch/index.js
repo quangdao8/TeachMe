@@ -43,7 +43,7 @@ class ListSearch extends React.Component {
         this.valueSearch = "";
         this.page = 1;
     }
-    // componentWillMount() {
+    // UNSAFE_componentWillMount() {
     //     const { userReducer } = this.props;
     //     this.setState({
     //         teacherData: _.isNull(userReducer.dataSearch) && userReducer.dataSearch.results,

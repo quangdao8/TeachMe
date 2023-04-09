@@ -39,7 +39,7 @@ class Advancedsearch extends React.Component {
         this.params = "";
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         const { navigation, dispatch } = this.props;
         dispatch(topicRequest("topic"));
         dispatch(specializeRequest("specialize"));

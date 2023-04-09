@@ -83,7 +83,7 @@ const StackChat = createStackNavigator(
         ChatHistories,
         Chat,
         Call,
-        // VideoCall,
+        VideoCall,
         GroupSelect,
         // GroupChatDetail,
         DetailSearch,

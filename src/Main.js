@@ -23,7 +23,7 @@ import {AppText, Button, LocalNotification} from './components';
 import {Const} from './helper/index';
 import {alertActions, userActions} from './actions';
 // import firebase from "react-native-firebase";
-import fbDatabase from '@react-native-firebase/database';
+import fbDatabase from '@react-native-firebase/app';
 import I18n from './helper/locales';
 import {onNavigate} from './actions/navigateAction';
 import {GROUP_TYPE, ALERT_TYPE, DEVICE, PD} from './helper/Consts';
@@ -112,9 +112,9 @@ class MainApp extends React.Component {
       // });
     } else {
       this.phoneStatePermission();
-      NativeModules.ReactNativeStarterModule.registerModuleStarted(
-        'start react',
-      );
+      // NativeModules.ReactNativeStarterModule.registerModuleStarted(
+      //   'start react',
+      // );
       const {userReducer = {}} = this.props;
       const {data = {}} = userReducer;
       const {id = 0} = data;
@@ -143,48 +143,48 @@ class MainApp extends React.Component {
           });
       }
 
-      DeviceEventEmitter.addListener('decline_incoming_call', e => {
-        const callData = e;
-        const {caller, to} = callData;
-        fbDatabase
-          .database()
-          .ref(`video-call/${JSON.parse(caller)}`)
-          .push({
-            caller: JSON.parse(caller),
-            to: JSON.parse(to),
-            status: 'finished',
-            isCanReceive: true,
-          })
-          .then(res => {
-            this.finishActivity();
-          });
-        setTimeout(() => {
-          fbDatabase
-            .database()
-            .ref(`video-call/${JSON.parse(caller)}`)
-            .remove();
-        }, 500);
-      });
+      // DeviceEventEmitter.addListener('decline_incoming_call', e => {
+      //   const callData = e;
+      //   const {caller, to} = callData;
+      //   fbDatabase
+      //     .database()
+      //     .ref(`video-call/${JSON.parse(caller)}`)
+      //     .push({
+      //       caller: JSON.parse(caller),
+      //       to: JSON.parse(to),
+      //       status: 'finished',
+      //       isCanReceive: true,
+      //     })
+      //     .then(res => {
+      //       this.finishActivity();
+      //     });
+      //   setTimeout(() => {
+      //     fbDatabase
+      //       .database()
+      //       .ref(`video-call/${JSON.parse(caller)}`)
+      //       .remove();
+      //   }, 500);
+      // });
 
-      DeviceEventEmitter.addListener('accept_incoming_call', e => {
-        const callData = e;
-        const {caller, isCanReceive, isVideo, to, callerName, avatar} =
-          callData;
+      // DeviceEventEmitter.addListener('accept_incoming_call', e => {
+      //   const callData = e;
+      //   const {caller, isCanReceive, isVideo, to, callerName, avatar} =
+      //     callData;
 
-        setTimeout(() => {
-          this.props.dispatch(
-            hasCallAction({
-              avatar: avatar,
-              caller: JSON.parse(caller),
-              callerName: callerName,
-              isCanReceive: JSON.parse(isCanReceive),
-              isVideo: JSON.parse(isVideo),
-              status: 'connected',
-              to: JSON.parse(to),
-            }),
-          );
-        }, 10);
-      });
+      //   setTimeout(() => {
+      //     this.props.dispatch(
+      //       hasCallAction({
+      //         avatar: avatar,
+      //         caller: JSON.parse(caller),
+      //         callerName: callerName,
+      //         isCanReceive: JSON.parse(isCanReceive),
+      //         isVideo: JSON.parse(isVideo),
+      //         status: 'connected',
+      //         to: JSON.parse(to),
+      //       }),
+      //     );
+      //   }, 10);
+      // });
     }
 
     //listen from call decline
@@ -317,7 +317,7 @@ class MainApp extends React.Component {
     // }, 2000);
   };
 
-  componentWillMount() {}
+  UNSAFE_componentWillMount() {}
 
   initNotificationDisplayedListener() {
     this.notificationDisplayedListener = firebase

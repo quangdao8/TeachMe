@@ -50,7 +50,7 @@ class ContactDetails extends React.Component {
         this.like = false;
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         const contact = this.props.navigation.getParam("contact");
         // this.setState({ is_like: contact.is_like });
         const { dispatch, navigation, contactReducer } = this.props;

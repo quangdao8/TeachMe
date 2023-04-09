@@ -18,12 +18,28 @@ import NewLogin from "../screens/NewLogin";
 import Drawer from "../screens/Drawer"
 import FeeList from "../screens/FeeList"
 import MyQrCode from "../screens/MyQrCode"
-import FrequentQuestions from "../screens/Settings/FrequentQuestions";
+import FrequentQuestions from "../screens/Settings a/FrequentQuestions";
+import {TopUp,Vnpay} from "../screens/TopUp"
+import MainSetting from "../screens/Settings a/MainSetting"
+import Privacy from "../screens/Settings a/Privacy";
+import Notification from "../screens/Settings a/Notification"
+import Maps from "../screens/Maps";
+import IncomingCall from "../screens/IncomingCall"
+import VideoCall from "../screens/VideoCall"
+import Call from "../screens/Call"
+import FindAccount from "../screens/ResetPassword/FindAccount"
+import AccountVerify from "../screens/ResetPassword/AccountVerify";
+import ConfirmationCode from "../screens/ResetPassword/ConfirmationCode";
+
+
 
 const LoginStack = createStackNavigator(
     {
         Login: Login,
-        NewLogin
+        NewLogin,
+        FindAccount: FindAccount,
+        AccountVerify,
+        ConfirmationCode
     },
     {
         initialRouteName: "Login",
@@ -31,16 +47,16 @@ const LoginStack = createStackNavigator(
     }
 );
 
-// const TopupStack = createStackNavigator(
-//     {
-//         TopUp,
-//         Vnpay
-//     },
-//     {
-//         initialRouteName: "TopUp",
-//         headerMode: "none"
-//     }
-// );
+const TopupStack = createStackNavigator(
+    {
+        TopUp,
+        Vnpay
+    },
+    {
+        initialRouteName: "TopUp",
+        headerMode: "none"
+    }
+);
 
 // const QrScanStack = createStackNavigator(
 //     {
@@ -54,18 +70,18 @@ const LoginStack = createStackNavigator(
 //     }
 // );
 
-// const SettingStack = createStackNavigator(
-//     {
-//         MainSetting: MainSetting,
-//         FrequentQuestions: FrequentQuestions,
-//         Notification: Notification,
-//         Privacy: Privacy
-//     },
-//     {
-//         initialRouteName: "MainSetting",
-//         headerMode: "none"
-//     }
-// );
+const SettingStack = createStackNavigator(
+    {
+        MainSetting: MainSetting,
+        // FrequentQuestions: FrequentQuestions,
+        Notification: Notification,
+        Privacy: Privacy
+    },
+    {
+        initialRouteName: "MainSetting",
+        headerMode: "none"
+    }
+);
 
 const DrawerApp = createDrawerNavigator(
     {
@@ -73,12 +89,12 @@ const DrawerApp = createDrawerNavigator(
         // TeacherDetails,
         // StudentDetails,
         // DetailTeacher,
-        // Maps,
+        Maps,
         // Charts,
         MyQrCode,
-        // TopupStack,
+        TopupStack,
         // IncomeHistory,
-        // SettingStack,
+        SettingStack,
         // QrScanStack,
         FrequentQuestions,
         FeeList,
@@ -123,6 +139,7 @@ const Switch = createSwitchNavigator(
         // Element,
         // DrawerApp,
         DrawerAppTeacher,
+        // IncomingCall,
         // Splash,
         // IncomeHistory,
         // MainSetting,
@@ -137,6 +154,9 @@ const Switch = createSwitchNavigator(
 const AppStack = createStackNavigator(
     {
         Switch,
+        IncomingCall,
+        VideoCall,
+        Call,
     },
     {
         initialRouteName: "Switch",

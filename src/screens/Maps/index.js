@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 // import RNAndroidLocationEnabler from "react-native-android-location-enabler";
 import SlidingUpPanel from "rn-sliding-up-panel";
-import { DEVICE, DIMENSION, permissions, resultPermission } from "helper/Consts";
+import { DEVICE, DIMENSION, permissions, resultPermission } from "../../helper/Consts";
 import HeaderApp from "components/Header";
 import I18n from "helper/locales";
 
@@ -474,6 +474,8 @@ class Maps extends React.Component {
         };
         // const response = await Permissions.check(permissions.LOCATION);
         Permissions.request(permissions.LOCATION).then(response => {
+            console.log('response----',response
+            );
             if (response == resultPermission.GRANTED) {
                 this.getNSendLocation();
             } else if (response == resultPermission.BLOCKED) {

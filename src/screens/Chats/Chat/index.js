@@ -63,7 +63,7 @@ class Chat extends React.Component {
         this.deleted_time = 0;
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         // TODO: USE LOCAL DATA
         const { messageRoom, userReducer, contactReducer, navigation, chatHistoriesReducer } = this.props;
         const { roomId } = this.state;

@@ -9,6 +9,8 @@ import { ICON } from '../assets/index';
 import AppImage from './AppImage';
 import { getChatRoomDetail } from '../actions/chat/chatHistoriesAction';
 import { STRING } from '../helper/Consts';
+import { ServiceHandle } from "../helper";
+
 
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
@@ -17,9 +19,63 @@ class Tabbar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            lang: props.languageReducer.language
+            lang: props.languageReducer.language,
+            userRe: props.userReducer,
         };
         this.firtTime = false;
+    }
+    
+    componentDidMount(){
+        // if (Platform.OS === "android") {
+        //     this.firebaseA = firebase
+        //         .database()
+        //         .ref(`video-call/${this.state.userRe.data.id}`)
+        //         .limitToLast(1)
+        //         .on("child_added", childSnapshot => {
+        //             console.log('check child added ==============', childSnapshot);
+        //             // let lastItem = childSnapshot.toJSON();
+        //             // this.props.navigation.push("IncomingCall", {
+        //             //    callData: lastItem
+        //             //  });
+        //             let lastItem = childSnapshot.toJSON();
+        //             const { to, caller, status } = lastItem;
+        //             if (status === "dialing") {
+        //                 const userRe = this.state.userRe || {};
+        //                 const { data = {}, type = "" } = userRe;
+
+        //                 const { id: myId = 0 } = data;
+        //                 // getUserData()
+        //                 if (to === myId && !!userRe && type !== "LOGOUT" && !!data) {
+        //                     const { settingReducer = {} } = this.props;
+        //                     const { data = {} } = settingReducer;
+        //                     const { soundCall = true, vibrationCall = true, onlineStatus = true } = data;
+        //                     // if (!!settingReducer && onlineStatus) {
+        //                     ServiceHandle.get(`call_log_user/${userRe.data.id}/`)
+        //                         .then(res => {
+        //                             console.log('check child added ==================', res);
+        //                             if (!res.error) {
+        //                                 lastItem.isRingtone = soundCall;
+        //                                 lastItem.isCallVibration = vibrationCall;
+        //                                 this.props.navigation.push("IncomingCall", {
+        //                                     callData: lastItem
+        //                                 });
+        //                             }
+        //                         })
+        //                         .catch(e => {
+        //                             console.log("error get call", e);
+        //                         });
+        //                     // }
+        //                 }
+        //             }
+
+        //             if (status === "finished" && !!this.state.userRe && !!this.state.userRe.data) {
+        //                 firebase
+        //                     .database()
+        //                     .ref(`video-call/${this.state.userRe.data.id}`)
+        //                     .remove();
+        //             }
+        //         });
+        // }
     }
 
     componentDidUpdate(prevProps) {
@@ -167,7 +223,8 @@ function mapStateToProps(state) {
         breakReducer: state.breakReducer,
         userReducer: state.userReducer,
         languageReducer: state.languageReducer,
-        navigateReducer: state.navigateReducer
+        navigateReducer: state.navigateReducer,
+        settingReducer: state.settingReducer
     };
 }
 Tabbar = connect(mapStateToProps)(Tabbar);

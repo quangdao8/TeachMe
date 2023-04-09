@@ -64,7 +64,7 @@ class ChatHistories extends React.Component {
         this.page = 1;
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         // const { navigation } = this.props;
         // const firstTime = navigation.getParam("firstTime");
         // AsyncStorage.getItem(STRING.NOTI).then(result => {

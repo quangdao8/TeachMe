@@ -29,7 +29,7 @@ import {
     editContactLocal,
     detailsContacntRequest,
     addRequest
-} from "actions/contactActions";
+} from "../../actions/contactActions";
 import {
     getFavoriteTeacherRequest,
     sendFavoriteTeacherRequest,
@@ -83,9 +83,8 @@ class DetailTeacher extends React.Component {
 
     async componentDidMount() {
         const contact = this.props.navigation.getParam("contact");
-        console.log('-------------------', contact);
         const { favoriteReducer, dispatch, tNsReducer } = this.props;
-        const default_Fee = tNsReducer.dataMasterSetting.results[0].block_value_teacher;
+        const default_Fee = tNsReducer?.dataMasterSetting?.results[0]?.block_value_teacher ?? 0;
         dispatch(getFavoriteTeacherRequest(contact.teacher.id));
         this.setState({
             id: contact.teacher.id,
@@ -135,6 +134,7 @@ class DetailTeacher extends React.Component {
     componentDidUpdate(prevProps) {
         const { favoriteReducer, dispatch } = this.props;
         const contact = this.props.navigation.getParam("contact");
+        console.log('+++++++++++++++++', favoriteReducer);
         if (prevProps.favoriteReducer !== favoriteReducer) {
             if (favoriteReducer.type == types.GET_FAVORITE_TEACHER_SUCCESS) {
                 this.setState({
@@ -388,8 +388,10 @@ class DetailTeacher extends React.Component {
     onLike() {
         const { is_like } = this.state;
         const { userReducer, favoriteReducer } = this.props;
-        const contact = favoriteReducer?.dataFavoriteTeacher;
+        // const contact = favoriteReducer?.dataFavoriteTeacher;
+        const contact = this.props.navigation.getParam("contact");
         this.setState({ is_like: !is_like });
+        console.log('contact---',userReducer);
         const params = {
             teacher_id: contact?.teacher.id,
             user_id: userReducer.data.id
@@ -399,13 +401,14 @@ class DetailTeacher extends React.Component {
     async disLike() {
         const { is_like } = this.state;
         const contact = this.props.favoriteReducer.dataFavoriteTeacher;
+        console.log('+++++++++++++++++++++++', contact);
         this.setState({ is_like: !is_like });
-        const data = await ServiceHandle.delete(`favorite_teacher/${contact?.teacher.id}/`);
-        if (data.error == false) {
-            this.onLoading();
-        }
-        // this.delete(contact.teacher.id);
-        // this.props.dispatch(deleteFavoriteTeacherRequest(contact.teacher.id));
+        // const data = await ServiceHandle.delete(`favorite_teacher/${contact?.teacher.id}/`);
+        // if (data.error == false) {
+        //     this.onLoading();
+        // }
+        this.delete(contact.teacher.id);
+        this.props.dispatch(deleteFavoriteTeacherRequest(contact.teacher.id));
     }
     delete(params) {
         const { dispatch, userReducer } = this.props;
@@ -452,11 +455,14 @@ class DetailTeacher extends React.Component {
         const { userReducer } = this.props;
         const isTeacher = userReducer.data.type === USER_TYPE.TEACHER;
         if (isTeacher) {
-            this.addFriend();
+            // this.addFriend();
+            console.log('isTeacher',isTeacher);
         } else {
             if (is_like) {
+                console.log('222');
                 this.remove();
             } else {
+                console.log('333');
                 this.addTeacher();
             }
         }
@@ -666,7 +672,7 @@ function mapStateToProps(state) {
         sendLikeReducer: state.sendLikeReducer,
         contactReducer: state.contactReducer,
         favoriteReducer: state.favoriteReducer,
-        tNsReducer: state.tNsReducer
+        tNsReducer: state.tNsReducer,
     };
 }
 DetailTeacher = connect(mapStateToProps)(DetailTeacher);

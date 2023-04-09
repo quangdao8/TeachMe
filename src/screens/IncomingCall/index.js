@@ -126,7 +126,7 @@ class IncomingCall extends React.Component {
     acceptCall = () => {
         IncallManager.stopRingtone();
         IncallManager.setKeepScreenOn(true);
-        // IncallManager.setForceSpeakerphoneOn(true);
+        IncallManager.setForceSpeakerphoneOn(true);
         // Vibration.cancel();
         this.callerDb
             .push({

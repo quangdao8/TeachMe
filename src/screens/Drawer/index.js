@@ -14,7 +14,7 @@ import I18n from "helper/locales";
 import { numberToCurrency } from "helper/convertLang";
 import { ServiceHandle } from "helper";
 
-import firebase from "@react-native-firebase/database";
+import firebase from "@react-native-firebase/app";
 import Permissions from "react-native-permissions";
 import { HAS_CALL } from "actions/types";
 import { openAlert } from "actions/alertActions";
@@ -111,18 +111,18 @@ class Drawer extends React.Component {
         });
     };
 
-    async componentWillMount() {
+    async UNSAFE_componentWillMount() {
         // getChatRoomDetail(105).then(res => {
         //     console.log("response drawer", res);
         // });
         this.checkPermission(MICROPHONE);
         if (Platform.OS === "android") {
-            this.firebaseA = firebase
+            this.firebase = firebase
                 .database()
                 .ref(`video-call/${this.state.userRe.data.id}`)
                 .limitToLast(1)
                 .on("child_added", childSnapshot => {
-                    console.log('==============', childSnapshot);
+                    console.log('check child added ==============', childSnapshot);
                     // let lastItem = childSnapshot.toJSON();
                     // this.props.navigation.push("IncomingCall", {
                     //    callData: lastItem
@@ -142,12 +142,17 @@ class Drawer extends React.Component {
                             // if (!!settingReducer && onlineStatus) {
                             ServiceHandle.get(`call_log_user/${userRe.data.id}/`)
                                 .then(res => {
+                                    console.log('check child added ==================', res);
                                     if (!res.error) {
+
                                         lastItem.isRingtone = soundCall;
                                         lastItem.isCallVibration = vibrationCall;
-                                        // this.props.navigation.push("IncomingCall", {
-                                        //     callData: lastItem
-                                        // });
+
+                                        console.log('check child added ================== lastItem', res, lastItem);
+
+                                        this.props.navigation.push("IncomingCall", {
+                                            callData: lastItem
+                                        });
                                     }
                                 })
                                 .catch(e => {
@@ -300,6 +305,7 @@ class Drawer extends React.Component {
                 }
             })
             .catch(error => {
+                console.log('err',error);
                 dispatch(openAlert(paramsAlert));
             })
             .finally(() => {

@@ -83,7 +83,7 @@ export default class LightboxOverlay extends Component {
     openVal: new Animated.Value(0),
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this._panResponder = PanResponder.create({
       // Ask to be the responder:
       onStartShouldSetPanResponder: (evt, gestureState) => !this.state.isAnimating,
