@@ -79,7 +79,7 @@ class NewLogin extends React.Component {
         return (
             <ImageBackground
                 style={{ flex: 1 }}
-                source={require("../../assets/backgroundLogin.png")}
+                source={require("../../assets/backgroundTeachMe.jpeg")}
             >
                 <HeaderApp
                     isBack
@@ -88,7 +88,7 @@ class NewLogin extends React.Component {
                     headerContainer={{ backgroundColor: "transparent" }}
                 />
                 <KeyboardAwareScrollView keyboardShouldPersistTaps="always">
-                    <AppImage
+                    {/* <AppImage
                         local
                         source={require("../../assets/logoLogin.png")}
                         resizeMode="contain"
@@ -96,13 +96,13 @@ class NewLogin extends React.Component {
                             width: "100%",
                             height: 0.15 * height,
                         }}
-                    />
+                    /> */}
                     <AppText
                         style={{
                             color: "white",
                             fontSize: 18,
                             textAlign: "center",
-                            marginTop: 0.03 * height
+                            marginTop: 0.15 * height
                         }}
                         text={I18n.t("startLoginScreen.welcome")}
                     />

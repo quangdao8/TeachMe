@@ -1,5 +1,5 @@
 const Colors = {
-    MAIN_COLOR: "#F58220",
+    MAIN_COLOR: "#568787",
     GRAY_TEXT_COLOR: "#707070",
     DIABLED_BUTTON: "#bfc1c2",
     WHITE_COLOR: "#ffffff",

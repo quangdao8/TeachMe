@@ -594,7 +594,7 @@ class Drawer extends React.Component {
         try {
             const result = await Share.share({
                 message:
-                    "Yo-leaner:\nGoogle Play: https://play.google.com/store/apps/details?id=com.yotalk \nApp Store: https://apps.apple.com/app/id1479662460"
+                    "Teach-Me:\nGoogle Play: TeachMe"
             });
 
             if (result.action === Share.sharedAction) {

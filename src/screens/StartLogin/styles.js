@@ -11,7 +11,8 @@ const styles = {
         fontSize: 18,
         textAlign: 'center',
         fontStyle: "italic",
-        padding: PD.PADDING_3
+        padding: PD.PADDING_3,
+        color: Colors.BLACK_TEXT_COLOR
     },
     inputsWrap: {
         width: "100%",

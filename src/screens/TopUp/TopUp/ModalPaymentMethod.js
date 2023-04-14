@@ -51,6 +51,7 @@ class ModalPaymentMethod extends React.Component {
                                 style={styles.description}
                             />
                         </View>
+                        {this.renderBtn(I18n.t("topUp.directPayment"))}
                         {this.renderBtn(I18n.t("topUp.vnpay"))}
                         {/* {Platform.OS == "ios" && this.renderBtn(I18n.t("topUp.iap"))} */}
                         {this.renderBtn(I18n.t("CallScreen.cancel"))}

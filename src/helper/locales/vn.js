@@ -28,17 +28,17 @@ export default {
         password: "Mật khẩu",
         createAccount: "Tạo tài khoản ",
         login: "ĐĂNG NHẬP",
-        yoleanTeacher: "YoLearn Teacher.",
+        yoleanTeacher: "TeachMe.",
         greeting: "Rất vui được gặp lại bạn"
     },
     startLoginScreen: {
         welcome: "Chào mừng bạn,",
         cameWith: "đã đến với ",
-        yoleanTeacher: "YoLearn Teacher",
+        yoleanTeacher: "TeachMe",
         forgotPassword: "Quên mật khẩu?",
         loginNow: "ĐĂNG NHẬP NGAY",
         createAcc: "TẠO TÀI KHOẢN",
-        note: "Lưu ý: Nếu bạn đã có tài khoản Yolearn, mời nhập số điện thoại/email tương ứng"
+        note: "Lưu ý: Nếu bạn đã có tài khoản TeachMe, mời nhập số điện thoại/email tương ứng"
     },
     FindAccountScreen: {
         FindAccount: "Tìm tài khoản của bạn",
@@ -50,7 +50,7 @@ export default {
         confirmPhone: "Xác nhận qua SMS",
         continue: "TIẾP TỤC",
         confirm: "Xác nhận tài khoản",
-        userYolearn: "Người dùng YoLearn"
+        userTeachMe: "Người dùng TeachMe"
     },
     ConfirmationCodeScreen: {
         confirmationCode: "Nhập mã xác nhận",
@@ -66,8 +66,8 @@ export default {
     },
     NewPasswordScreen: {
         newPass: "Nhập mật khẩu mới",
-        pleaseInputPass: "Vui lòng nhập mật khẩu mới cho \n tài khoản YoLearn Teacher của bạn",
-        forAccount: "tài khoản YoLearn Teacher của bạn",
+        pleaseInputPass: "Vui lòng nhập mật khẩu mới cho \n tài khoản TeachMe của bạn",
+        forAccount: "tài khoản TeachMe của bạn",
         password: "Mật khẩu",
         reEnterPassword: "Nhập lại mật khẩu",
         notMatch: "Xác nhận mật khẩu không trùng với mật khẩu",
@@ -98,7 +98,7 @@ export default {
         content: "Đặt mã QR ở trung tâm hình vuông để tự động quét"
     },
     ListUserScreen: {
-        yoleanTeacher: "YoLearn Teacher",
+        yoleanTeacher: "TeachMe",
         askTeacher: "Hỏi Bài Giáo Viên",
         favorite: "Yêu thích",
         sendAdder: "đã gửi lời mời kết bạn",
@@ -182,7 +182,7 @@ export default {
         topup99: "Yêu cầu không hợp lệ",
         phoneOrEmailAlreadyUsed: "Số điện thoại/email đã sử dụng",
         pickADate: "Chọn ngày",
-        service: "Dịch vụ hỏi bài dành cho học sinh mua khóa học của Yolearn",
+        service: "Dịch vụ hỏi bài dành cho học sinh mua khóa học của TeachMe",
         buyNow: "Mua ngay",
         signoutFailed: "Đăng xuất không thành công",
         permission: "Permission",
@@ -193,7 +193,7 @@ export default {
         sendFile: "Gửi tệp tin",
         sendLocation: "Gửi vị trí",
         sendGif: "Gửi ảnh động",
-        header: "YoLearn Teacher",
+        header: "TeachMe",
         searchGif: "Tìm kiếm ảnh động",
         imageType: " đã gửi một ảnh",
         imagesType: " đã gửi nhiều ảnh",
@@ -307,9 +307,9 @@ export default {
         contentTeacher:
             "Tài khoản của bạn đã được tạo thành công. Cảm ơn bạn vì mong muốn hợp tác với YoTeacher. Xin vui lòng đợi, trong vòng 48 tiếng, chúng tôi sẽ liên hệ với bạn để hoàn thiện hồ sơ đăng kí trở thành giáo viên YoTeacher. Chúc bạn một ngày tốt lành.",
         contentLearner:
-            "Tài khoản của bạn đã được tạo thành công. Bạn có thể sử dụng tài khoản để đăng nhập trên tất cả các hệ thống của Yolearn.",
+            "Tài khoản của bạn đã được tạo thành công. Bạn có thể sử dụng tài khoản để đăng nhập trên tất cả các hệ thống của TeachMe.",
         buyCourseContent:
-            "YoTeacher là dịch vụ hỏi bài thầy cô miễn phí, được tặng kèm cho học sinh mua khoá học của Yolearn. Mời bạn mua khoá học ngay để được hỏi bài không giới hạn!",
+            "YoTeacher là dịch vụ hỏi bài thầy cô miễn phí, được tặng kèm cho học sinh mua khoá học của TeachMe. Mời bạn mua khoá học ngay để được hỏi bài không giới hạn!",
         buyCourse: "Mua khoá học",
         askLesson: "Hỏi bài"
     },
@@ -374,7 +374,8 @@ export default {
         desPaymentModal2: "vào tài khoản của bạn.",
         vnpay: "Thanh toán qua VNPay",
         iap: "Thanh toán qua cửa hàng",
-        waitForTopup: "Đang chờ thanh toán"
+        waitForTopup: "Đang chờ thanh toán",
+        directPayment: "Thanh toán trực tiếp",
     },
     settings: {
         notification: "Thông báo",
@@ -435,7 +436,7 @@ export default {
     menu: {
         surplus: "Số dư",
         home: "Trang chủ",
-        shareApp: "Chia sẻ YoLearn Teacher với bạn bè",
+        shareApp: "Chia sẻ TeachMe với bạn bè",
         feeList: "Bảng kê cước phí",
         recharge: "Nạp tiền",
         incomeHistory: "Lịch sử thu nhập",
@@ -541,7 +542,7 @@ export default {
         NoTeacherFound: "Không tìm thấy giáo viên"
     },
     registration: {
-        title: "Bạn là thành viên mới của YoLearn - YoTeacher",
+        title: "Bạn là thành viên mới của TeachMe - YoTeacher",
         content: "Hãy điền một số thông tin của bạn để gia nhập cộng đồng và tìm hiểu các quyền lợi của mình nhé.",
         phoneOrEmail: "Số điện thoại hoặc email",
         fullName: "Họ và tên",

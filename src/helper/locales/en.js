@@ -28,13 +28,13 @@ export default {
         password: "Password",
         createAccount: "Create an account ",
         login: "LOGIN",
-        yoleanTeacher: "Yolearn Teacher.",
+        yoleanTeacher: "TeachMe.",
         greeting: "Welcome back"
     },
     startLoginScreen: {
         welcome: "Welcome,",
         cameWith: "to ",
-        yoleanTeacher: "Yolearn Teacher",
+        yoleanTeacher: "TeachMe",
         forgotPassword: "Forgot Password?",
         loginNow: "LOGIN NOW",
         createAcc: "CREATE ACCOUNT",
@@ -66,8 +66,8 @@ export default {
     },
     NewPasswordScreen: {
         newPass: "Enter a new password",
-        pleaseInputPass: "Please enter a new password for  \n your Yolearn Teacher account",
-        forAccount: "your Yolearn Teacher account",
+        pleaseInputPass: "Please enter a new password for  \n your TeachMe account",
+        forAccount: "your TeachMe account",
         password: "Password",
         reEnterPassword: "Re-enter password",
         notMatch: "The passwords do not match",
@@ -98,7 +98,7 @@ export default {
         content: "Place the QR code in the center of the square to automatically scan"
     },
     ListUserScreen: {
-        yoleanTeacher: "Yolearn Teacher",
+        yoleanTeacher: "TeachMe",
         askTeacher: "Question For Teacher",
         favorite: "Favorites",
         sendAdder: "sent a friend request",
@@ -193,7 +193,7 @@ export default {
         sendFile: "Send file",
         sendLocation: "Send location",
         sendGif: "Send animation",
-        header: "YoLearn Teacher",
+        header: "TeachMe",
         searchGif: "Search for animations",
         imageType: " sent an image",
         imagesType: " sent multiple images",
@@ -374,7 +374,8 @@ export default {
         desPaymentModal2: "to your account.",
         vnpay: "Payment via VNPay",
         iap: "Pay through store",
-        waitForTopup: "Watting for payment"
+        waitForTopup: "Watting for payment",
+        directPayment: "Payment via direct",
     },
     settings: {
         notification: "Notification",
@@ -434,7 +435,7 @@ export default {
     menu: {
         surplus: "Overbalance",
         home: "Home",
-        shareApp: "Share YoLearn Teacher with friends",
+        shareApp: "Share TeachMe with friends",
         feeList: "Fee list",
         recharge: "Top-up",
         incomeHistory: "Income history",

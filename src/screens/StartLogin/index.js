@@ -101,25 +101,27 @@ class  StartLogin extends React.Component {
 
                 <ImageBackground
                     style={{ width: "100%", height: "100%" }}
-                    source={require("../../assets/backgroundLogin.png")}
+                    source={require("../../assets/backgroundTeachMe.jpeg")}
+                    
                 >
                     <KeyboardAwareScrollView enableOnAndroid keyboardShouldPersistTaps="always">
-                        <AppImage
+                        {/* <AppImage
                             local
-                            source={require("../../assets/logoLogin.png")}
+                            source={require("../../assets/logoTeachMe.png")}
                             resizeMode="contain"
                             style={{
                                 width: "100%",
                                 height: 0.15 * height,
-                                marginTop: 0.12 * height
+                                marginTop: 0.12 * height,
+                                borderRadius: 40
                             }}
-                        />
+                        /> */}
                         <AppText
                             style={{
                                 color: "white",
                                 fontSize: 18,
                                 textAlign: "center",
-                                marginTop: 0.03 * height
+                                marginTop: 0.24 * height
                             }}
                             text={I18n.t("startLoginScreen.welcome")}
                         />
