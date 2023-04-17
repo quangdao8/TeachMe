@@ -688,17 +688,17 @@ class VideoCall extends Component {
 
   getStats = () => {
     const {pc} = this.state;
-    // if (this.state.isMute) {
-    //     pc.getLocalStreams()[0].getAudioTracks()[0].enabled = false;
-    // }
-    // if (!!pc && pc.getRemoteStreams()[0] && pc.getRemoteStreams()[0].getAudioTracks()[0]) {
-    //     const track = pc.getRemoteStreams()[0].getAudioTracks()[0];
-    //     pc.getStats(track)
-    //         .then(report => {
-    //             console.log("getStats report", report, JSON.stringify(configuration));
-    //         })
-    //         .catch(e => console.log(e));
-    // }
+    if (this.state.isMute) {
+        pc.getLocalStreams()[0].getAudioTracks()[0].enabled = false;
+    }
+    if (!!pc && pc.getRemoteStreams()[0] && pc.getRemoteStreams()[0].getAudioTracks()[0]) {
+        const track = pc.getRemoteStreams()[0].getAudioTracks()[0];
+        pc.getStats(track)
+            .then(report => {
+                console.log("getStats report", report, JSON.stringify(configuration));
+            })
+            .catch(e => console.log(e));
+    }
   };
 
   createOffer(pc) {
@@ -790,25 +790,25 @@ class VideoCall extends Component {
         // const [receiver] = event.target.getReceivers();
         // const remoteStream = receiver.track.remoteStream;
         // console.log('============ onnegotiationneeded ====== Remote stream:', remoteStream);
-        // setTimeout(() => {
-        //     this.getStats();
-        // }, 1000);
-        const [receiver] = event.target.getReceivers();
-        console.log(
-            '============ onnegotiationneeded ======',
-            console.log('Receivers:', receiver),
-          );
-        if (receiver?.track) {
-          const remoteStream = receiver.track.remoteStream;
-          // Do something with the remote stream
-          console.log('Remote stream:', remoteStream);
-        } else {
-          receiver.ontrack = function (event) {
-            const remoteStream = event.streams[0];
-            // Do something with the remote stream
-            console.log('Remote stream:', remoteStream);
-          };
-        }
+        setTimeout(() => {
+            this.getStats();
+        }, 1000);
+        // const [receiver] = event.target.getReceivers();
+        // console.log(
+        //     '============ onnegotiationneeded ======',
+        //     console.log('Receivers:', receiver),
+        //   );
+        // if (receiver?.track) {
+        //   const remoteStream = receiver.track.remoteStream;
+        //   // Do something with the remote stream
+        //   console.log('Remote stream:', remoteStream);
+        // } else {
+        //   receiver.ontrack = function (event) {
+        //     const remoteStream = event.streams[0];
+        //     // Do something with the remote stream
+        //     console.log('Remote stream:', remoteStream);
+        //   };
+        // }
       }
     };
 

@@ -30,6 +30,10 @@ import Call from "../screens/Call"
 import FindAccount from "../screens/ResetPassword/FindAccount"
 import AccountVerify from "../screens/ResetPassword/AccountVerify";
 import ConfirmationCode from "../screens/ResetPassword/ConfirmationCode";
+import QRScanDrawer from "../screens/DrawerScreen/QRScanDrawer";
+import AddContact from "../screens/AddContact";
+import DetailTeacher from "../screens/DetailTeacher";
+import IncomeHistory from "../screens/IncomeHistory";
 
 
 
@@ -58,17 +62,17 @@ const TopupStack = createStackNavigator(
     }
 );
 
-// const QrScanStack = createStackNavigator(
-//     {
-//         QRScanDrawer,
-//         AddContact,
-//         DetailTeacher
-//     },
-//     {
-//         initialRouteName: "QRScanDrawer",
-//         headerMode: "none"
-//     }
-// );
+const QrScanStack = createStackNavigator(
+    {
+        QRScanDrawer,
+        AddContact,
+        DetailTeacher
+    },
+    {
+        initialRouteName: "QRScanDrawer",
+        headerMode: "none"
+    }
+);
 
 const SettingStack = createStackNavigator(
     {
@@ -95,7 +99,7 @@ const DrawerApp = createDrawerNavigator(
         TopupStack,
         // IncomeHistory,
         SettingStack,
-        // QrScanStack,
+        QrScanStack,
         FrequentQuestions,
         FeeList,
         // Chat,
@@ -117,7 +121,7 @@ const DrawerAppTeacher = createDrawerNavigator(
         // Charts,
         // MyQrCode,
         // TopupStack,
-        // IncomeHistory,
+        IncomeHistory,
         // SettingStack,
         // QrScanStack,
         // FrequentQuestions,
