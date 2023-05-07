@@ -50,12 +50,12 @@ export const routes = [
         img: ICON.SETTING_MENU,
         fireBase: "Menu_Logout"
     },
-    {
-        name: I18n.t("menu.help"),
-        navigate: "FrequentQuestions",
-        img: ICON.HELP_MENU,
-        fireBase: "Menu_Logout"
-    },
+    // {
+    //     name: I18n.t("menu.help"),
+    //     navigate: "FrequentQuestions",
+    //     img: ICON.HELP_MENU,
+    //     fireBase: "Menu_Logout"
+    // },
     {
         name: I18n.t("menu.exit"),
         navigate: "ConfirmLogOut",
@@ -101,12 +101,12 @@ export const routes1 = [
         img: ICON.SETTING_MENU,
         fireBase: "Menu_Logout"
     },
-    {
-        name: I18n.t("menu.help"),
-        navigate: "FrequentQuestions",
-        img: ICON.HELP_MENU,
-        fireBase: "Menu_Logout"
-    },
+    // {
+    //     name: I18n.t("menu.help"),
+    //     navigate: "FrequentQuestions",
+    //     img: ICON.HELP_MENU,
+    //     fireBase: "Menu_Logout"
+    // },
     {
         name: I18n.t("menu.exit"),
         navigate: "ConfirmLogOut",

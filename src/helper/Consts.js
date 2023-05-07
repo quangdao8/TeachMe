@@ -10,8 +10,8 @@ import { PERMISSIONS, RESULTS } from "react-native-permissions";
 // export const HOST_NODE_SERVER = "http://192.168.0.111:3000/";
 
 export const HOST_NODE_SERVER = "https://us-central1-yoteacher-ac1f9.cloudfunctions.net/app/";
-export const HOST = "http://172.20.10.2:3000/api/";
-export const HOST_IMAGE = "http://172.20.10.2:3000";
+export const HOST = "http://192.168.1.11:3000/api/";
+export const HOST_IMAGE = "http://192.168.1.11:3000";
 
 export const SECRET_KEY = "YoTeacherSecretKey";
 // export const VERSION = "1.0(20.9)";

@@ -287,7 +287,7 @@ class RenderChatFooter extends Component {
         };
         Permissions.request(permissions.LOCATION).then(response => {
             if (response == resultPermission.GRANTED) {
-                this.getNSendLocation();
+                // this.getNSendLocation();
             } else if (response == resultPermission.BLOCKED) {
                 this.setState({ showAlert: true });
             } else if (response == resultPermission.DENIED) {
@@ -689,18 +689,18 @@ class RenderChatFooter extends Component {
                             onPress={() => {}}
                             style={styles.buttonSecondary}
                         /> */}
-                        <Button
+                        {/* <Button
                             renderLeftIcon={this.renderLeftIcon(ICON.CHAT_FILE)}
                             title={I18n.t("chat.sendFile")}
                             onPress={() => this.onSendFile()}
                             style={styles.buttonSecondary}
-                        />
-                        <Button
+                        /> */}
+                        {/* <Button
                             renderLeftIcon={this.renderLeftIcon(ICON.IC_LOCATION)}
                             title={I18n.t("chat.sendLocation")}
                             onPress={() => this.onSendPosition()}
                             style={styles.buttonSecondary}
-                        />
+                        /> */}
                         <Button
                             renderLeftIcon={this.renderLeftIcon(ICON.CHAT_GIPHY)}
                             title={I18n.t("chat.sendGif")}

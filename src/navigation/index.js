@@ -107,7 +107,7 @@ const DrawerApp = createDrawerNavigator(
     },
     {
         contentComponent: Drawer,
-        drawerWidth: DEVICE.DEVICE_WIDTH * 0.85
+        drawerWidth: DEVICE.DEVICE_WIDTH * 0.85,
     }
 );
 
