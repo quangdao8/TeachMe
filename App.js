@@ -32,6 +32,9 @@ import MainApp from './src/Main';
 
 const { persistor, store } = configureStore();
 
+console.disableYellowBox = true
+
+
 
 const Section = ({children, title}) => {
   const isDarkMode = useColorScheme() === 'dark';

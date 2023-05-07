@@ -238,7 +238,7 @@ class VideoCall extends Component {
       }
     });
     let isTeacher = isFrom && type == USER_TYPE.TEACHER;
-    let defaultTimer = 30 * this.numberBlock + 1;
+    let defaultTimer = 0;
     callActions
       .postCheckBlock(
         call_log_id,
@@ -458,7 +458,7 @@ class VideoCall extends Component {
             IncallManager.stop();
             if (isFrom) {
               userActions.getUserData({id}).then(res => {
-                let defaultTimer = 30 * this.numberBlock + 1;
+                let defaultTimer = 0;
                 if (!res.error) {
                   let balance = res.response.amount;
                   firebase.database().ref(`/video-call/${callerId}`).remove();
@@ -484,7 +484,7 @@ class VideoCall extends Component {
                 }
               });
               let call_log_id = this.state.call_log_id;
-              let defaultTimer = 30 * this.numberBlock + 1;
+              let defaultTimer = 0;
               callActions
                 .postCheckBlock(
                   call_log_id,
@@ -517,6 +517,8 @@ class VideoCall extends Component {
                 .on('child_added', childSnapshot => {
                   const lastItem = childSnapshot.toJSON();
                   const {call_log} = lastItem;
+                  const defaultTimer = 0;
+                  
                   let userUpdate = this.props.userReducer.data || {};
                   if (!this.isUpdateAmount) {
                     userActions
@@ -529,8 +531,12 @@ class VideoCall extends Component {
                         }
                         ServiceHandle.patch(`/call_log/${call_log}/`, {
                           note_received_user: this.note.trim(),
+                          duration: (this.timer > defaultTimer
+                          ? this.timer * 1000
+                          : defaultTimer * 1000) || 0,
                         })
                           .then(res => {
+                            console.log('abcdabcd >>>>>>>>>>>>>>>>>>>>>>>>>>>>>', res);
                             firebase
                               .database()
                               .ref(`/call-log-id/${id}`)
@@ -689,15 +695,19 @@ class VideoCall extends Component {
   getStats = () => {
     const {pc} = this.state;
     if (this.state.isMute) {
-        pc.getLocalStreams()[0].getAudioTracks()[0].enabled = false;
+      pc.getLocalStreams()[0].getAudioTracks()[0].enabled = false;
     }
-    if (!!pc && pc.getRemoteStreams()[0] && pc.getRemoteStreams()[0].getAudioTracks()[0]) {
-        const track = pc.getRemoteStreams()[0].getAudioTracks()[0];
-        pc.getStats(track)
-            .then(report => {
-                console.log("getStats report", report, JSON.stringify(configuration));
-            })
-            .catch(e => console.log(e));
+    if (
+      !!pc &&
+      pc.getRemoteStreams()[0] &&
+      pc.getRemoteStreams()[0].getAudioTracks()[0]
+    ) {
+      const track = pc.getRemoteStreams()[0].getAudioTracks()[0];
+      pc.getStats(track)
+        .then(report => {
+          console.log('getStats report', report, JSON.stringify(configuration));
+        })
+        .catch(e => console.log(e));
     }
   };
 
@@ -786,12 +796,11 @@ class VideoCall extends Component {
         }
       }
       if (event.target.iceConnectionState === 'completed') {
-        
         // const [receiver] = event.target.getReceivers();
         // const remoteStream = receiver.track.remoteStream;
         // console.log('============ onnegotiationneeded ====== Remote stream:', remoteStream);
         setTimeout(() => {
-            this.getStats();
+          this.getStats();
         }, 1000);
         // const [receiver] = event.target.getReceivers();
         // console.log(
@@ -907,7 +916,7 @@ class VideoCall extends Component {
   };
 
   changeSpeaker = () => {
-    // IncallManager.setSpeakerphoneOn(!this.state.isSpeaker);
+    IncallManager.setSpeakerphoneOn(!this.state.isSpeaker);
     console.log('123111111111', this.state.isSpeaker);
     if (!this.state.isSpeaker) {
       IncallManager.chooseAudioRoute('SPEAKER_PHONE');
@@ -982,7 +991,7 @@ class VideoCall extends Component {
       console.log('request=>>', this.state.call_log_id, seconds, time);
       let call_log_id = this.state.call_log_id;
       this.numberBlock += 1;
-      let defaultTimer = 30 * this.numberBlock + 1;
+      let defaultTimer = 0;
       this.endTime = moment().utc().format('YYYY-MM-DD HH:mm:ss.SSSSSS');
       callActions
         .postCheckBlock(this.state.call_log_id, this.endTime, defaultTimer, 0)
@@ -1237,7 +1246,9 @@ class VideoCall extends Component {
                 style={{width: 25, height: 10}}
               />
             }
-            onPress={() => this.disconnectCall()}
+            onPress={() => {
+              this.disconnectCall();
+            }}
           />
         </ImageBackground>
         {this.renderEndCall()}

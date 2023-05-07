@@ -26,6 +26,7 @@ import CallHistory from "../screens/CallHistory";
 import ForwardMessage from "../screens/Chats/ForwardMessage"
 import GroupSelect from "../screens/Chats/GroupSelect";
 import Student from "../screens/Student";
+import CallDetails from "../screens/CallDetails"
 
 const StackContact = createStackNavigator(
     {
@@ -115,7 +116,7 @@ StackChat.navigationOptions = ({ navigation }) => {
 const StackCall = createStackNavigator(
     {
         CallHistory,
-        // CallDetails,
+        CallDetails,
         Call,
         VideoCall
     },

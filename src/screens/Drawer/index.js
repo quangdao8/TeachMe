@@ -389,18 +389,18 @@ class Drawer extends React.Component {
                         img: ICON.MONEY_MENU,
                         fireBase: "Menu_Logout"
                     },
-                    {
-                        name: I18n.t("menu.incomeHistory"),
-                        navigate: "IncomeHistory",
-                        img: ICON.CLOCK_MENU,
-                        fireBase: "Menu_Logout"
-                    },
-                    {
-                        name: I18n.t("menu.chart"),
-                        navigate: "Charts",
-                        img: ICON.CHART,
-                        fireBase: "Menu_Logout"
-                    },
+                    // {
+                    //     name: I18n.t("menu.incomeHistory"),
+                    //     navigate: "IncomeHistory",
+                    //     img: ICON.CLOCK_MENU,
+                    //     fireBase: "Menu_Logout"
+                    // },
+                    // {
+                    //     name: I18n.t("menu.chart"),
+                    //     navigate: "Charts",
+                    //     img: ICON.CHART,
+                    //     fireBase: "Menu_Logout"
+                    // },
                     {
                         name: I18n.t("menu.scanQR"),
                         navigate: "QrScanStack",

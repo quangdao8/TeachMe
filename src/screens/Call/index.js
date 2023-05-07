@@ -308,7 +308,7 @@ class Call extends React.Component {
         }
       }
     });
-    // IncallManager.setKeepScreenOn(true);
+    IncallManager.setKeepScreenOn(true);
 
     firebase
       .database()
@@ -550,7 +550,7 @@ class Call extends React.Component {
   };
 
   changeSpeaker = () => {
-    // IncallManager.setSpeakerphoneOn(!this.state.isSpeaker);
+    IncallManager.setSpeakerphoneOn(!this.state.isSpeaker);
     IncallManager.setForceSpeakerphoneOn(!this.state.isSpeaker);
     this.setState({isSpeaker: !this.state.isSpeaker});
   };

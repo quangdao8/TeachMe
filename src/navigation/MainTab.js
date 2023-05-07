@@ -32,6 +32,8 @@ import GroupSelect from "../screens/Chats/GroupSelect";
 import QRScanTeacher from "../screens/Teacher/QRScanTeacher"
 import DetailSearch from "../screens/Search/DetailSearch"
 import ReceiveCall from "../screens/CallReceive"
+import CallDetails from "../screens/CallDetails"
+
 
 const StackContact = createStackNavigator(
     {
@@ -125,7 +127,7 @@ StackChat.navigationOptions = ({ navigation }) => {
 const StackCall = createStackNavigator(
     {
         CallHistory,
-        // CallDetails,
+        CallDetails,
         Call,
         ReceiveCall,
         VideoCall

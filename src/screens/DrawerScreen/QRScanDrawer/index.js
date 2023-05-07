@@ -129,7 +129,7 @@ class QRScanDrawer extends React.Component {
                 onRead={this.onSuccess}
                 showMarker={true}
                 fadeIn={false}
-                vibrate={vibration}
+                vibrate={false}
                 reactivate={true}
                 reactivateTimeout={2000}
                 cameraStyle={{ height: SCREEN_HEIGHT - STATUS_BAR_HEIGHT }}
